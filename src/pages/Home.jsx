@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // import { Button, Form, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Card from "../components/Card";
 import {
   filterHeadlineThunk,
   filterProductsThunk,
@@ -25,15 +26,12 @@ const Home = () => {
   useEffect(() => {
     dispatch(getProductsThunk());
   }, []);
-  console.log(categoriesProduct);
+  // console.log(categoriesProduct);
   return (
     <div>
       <h1>Home Products</h1>
       <h3>categories</h3>
       <div className="tabs tabs-boxed">
-        {/* <a className="tab">Tab 1</a> 
-        <a className="tab tab-active">Tab 2</a> 
-        <a className="tab">Tab 3</a> */}
         {categoriesProduct.map((category) => (
           <button
             className={`tab ${category.id == categorySelected && "tab-active"}`}
@@ -81,31 +79,7 @@ const Home = () => {
       <ul className="flex flex-wrap justify-center gap-3 max-w-screen-2xl mx-auto ">
         {products.map((product) => (
           <li>
-            <Link to={`/products/${product.id}`}>
-              {/* <p>
-                {product.title}
-                <img src={product.productImgs?.[0]} alt="" width="200px" />
-              </p> */}
-              <div className="card w-96 bg-base-100 shadow-xl divide-y">
-                <figure className="h-64">
-                  <img
-                    src={product.productImgs?.[0]}
-                    alt="Shoes"
-                    // width="50px"
-                    // height="100%"
-                    className="h-4/5	"
-                  />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">{product.title}</h2>
-                  <span className="text-slate-500">Price</span>
-                  <p className="font-bold">${product.price}</p>
-                  <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Buy Now</button>
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <Card product={product}/>
           </li>
         ))}
       </ul>
