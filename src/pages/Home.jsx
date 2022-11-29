@@ -79,7 +79,7 @@ const Home = () => {
       <ul className="flex flex-wrap justify-center gap-3 max-w-screen-2xl mx-auto ">
         {products.map((product) => (
           <li>
-            <Card product={product}/>
+            <Card product={product} />
           </li>
         ))}
       </ul>

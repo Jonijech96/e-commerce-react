@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PurchaseItem from "../components/PurchaseItem";
+import { getPurchasesThunk } from "../store/slices/purchases.slice";
 
 const Purchases = () => {
-  return (
-    <div>Purchases</div>
-  )
-}
+  const dispatch = useDispatch();
+  const purchases = useSelector((state) => state.purchases);
+  useEffect(() => {
+    dispatch(getPurchasesThunk());
+  }, []);
 
-export default Purchases
+  return (
+    <div>
+      <ul>
+        {purchases.map((purchase) => (
+          <PurchaseItem purchase={purchase} key={purchase.id} />
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Purchases;
