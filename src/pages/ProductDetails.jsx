@@ -13,7 +13,7 @@ const ProductDetails = () => {
   const {id} = useParams();
   const productsList = useSelector(state=>state.products);
   const product = productsList.find(productItem=>productItem.id === Number(id))
-  // console.log(product);
+  console.log(product);
 
   const productsCategories = productsList.filter(productItem=> productItem.category.id == product.category.id && productItem.id !== product.id);
   // console.log(productsCategories);

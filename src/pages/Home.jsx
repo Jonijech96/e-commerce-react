@@ -29,8 +29,7 @@ const Home = () => {
   // console.log(categoriesProduct);
   return (
     <div>
-      <h1>Home Products</h1>
-      <h3>categories</h3>
+      
       <div className="tabs tabs-boxed">
         {categoriesProduct.map((category) => (
           <button

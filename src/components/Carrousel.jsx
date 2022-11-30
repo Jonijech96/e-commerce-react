@@ -30,8 +30,8 @@ const Carrousel = ({arrayImage}) => {
   }
   return (
     <div className="carousel h-4/5 w-full" >
-      <div className="carousel-item relative w-full flex items-center	h-4/5	">
-        <img src={selectedImage} className=" h-3/6		mx-auto 	max-h-96	" />
+      <div className="carousel-item relative w-full flex items-center	h-4/5	bg-base-200">
+        <img src={selectedImage} className=" h-3/6		mx-auto 	max-h-96	mix-blend-multiply	" />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
           <button onClick={previous} className="btn btn-circle">❮</button> 
           <button onClick={next} className="btn btn-circle">❯</button>

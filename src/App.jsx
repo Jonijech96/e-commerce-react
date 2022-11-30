@@ -18,6 +18,8 @@ function App() {
   const isLoading = useSelector((state) => state.isLoading);
   return (
     <HashRouter>
+      <div className="flex flex-col min-h-screen justify-between mx-auto">
+
       <NavBar />
       {isLoading && <LoadingScreen />}
 
@@ -32,9 +34,10 @@ function App() {
       </Routes>
       <footer className="footer footer-center p-4 bg-base-300 text-base-content">
         <div>
-          <p>Copyright © 2022 - All right reserved by ACME Industries Ltd</p>
+          <p>Copyright © 2022 - All right reserved by Academlo</p>
         </div>
       </footer>
+      </div>
     </HashRouter>
   );
 }
