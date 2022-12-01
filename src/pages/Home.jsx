@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
   // console.log(categoriesProduct);
   return (
-    <div>
+    <div className="pb-5">
       
       <div className="tabs tabs-boxed">
         {categoriesProduct.map((category) => (
@@ -44,12 +44,12 @@ const Home = () => {
         ))}
       </div>
 
-      <div className="form-control">
-        <div className="input-group">
+      <div className="form-control py-8">
+        <div className="input-group justify-center">
           <input
             type="text"
             placeholder="Search…"
-            className="input input-bordered"
+            className="input input-bordered w-2/3 max-w-md"
             value={inputSearch}
             onChange={(e) => setInputSearch(e.target.value)}
           />

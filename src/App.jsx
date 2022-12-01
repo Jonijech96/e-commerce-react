@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar";
 import LoadingScreen from "./components/LoadingScreen";
 import { useSelector } from "react-redux";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import DrawerCart from "./components/DrawerCart";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,6 +19,19 @@ function App() {
   const isLoading = useSelector((state) => state.isLoading);
   return (
     <HashRouter>
+      <div className="drawer">
+      <input
+          id="cart-drawer"
+          type="checkbox"
+          className="drawer-toggle"
+          // checked={inputCheck}
+          // onChange={(e) => {
+          //   setInputCheck(e.target.checked);
+          //   console.log(inputCheck);
+          // }}
+        />
+        <div className="drawer-content">
+
       <div className="flex flex-col min-h-screen justify-between mx-auto">
 
       <NavBar />
@@ -37,6 +51,9 @@ function App() {
           <p>Copyright © 2022 - All right reserved by Academlo</p>
         </div>
       </footer>
+      </div>
+        </div>
+        <DrawerCart />
       </div>
     </HashRouter>
   );

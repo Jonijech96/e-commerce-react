@@ -10,7 +10,7 @@ const Carrousel = ({arrayImage}) => {
   }, [arrayImage])
 
   
-  console.log(arrayImage);
+  // console.log(arrayImage);
 
 
   const selectNewImage = (index,images,next)=>{

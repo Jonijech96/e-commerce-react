@@ -10,10 +10,11 @@ const Cart = () => {
     dispatch(getCartThunk())
   }, [])
   const cart = useSelector(state=>state.cart);
+  console.log(cart);
   return (  
     <div>
       Cart
-    { cart.lenght ? (
+    { 
 
       cart.map(cartItem=>(
         <li>
@@ -23,7 +24,7 @@ const Cart = () => {
          <p>subtotal: {priceTotal +=  Number(cartItem.price) * cartItem.productsInCart.quantity}</p>
         </li>
       ))
-    ) : <p>no hay productos en el carrito</p>
+   
     }
     </div>
     

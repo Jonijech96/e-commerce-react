@@ -13,6 +13,8 @@ const Card = ({product}) => {
                   />
                 </figure>
                 <div className="card-body">
+          <div className="badge badge-outline">{product.category.name}</div>
+
                   <h2 className="card-title">{product.title}</h2>
                   <span className="text-slate-500">Price</span>
                   <p className="font-bold">${product.price}</p>

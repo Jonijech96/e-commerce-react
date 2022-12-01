@@ -61,17 +61,15 @@ const NavBar = () => {
               className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg">{cart.length} Items</span>
+                <span className="font-bold text-lg">{cart.length} Products</span>
                 {/* <span className="text-info">Subtotal: $0</span> */}
                 <div className="card-actions">
-                {cart.length ? (
-                <button onClick={()=>setIsDrawerOpen(!isDrawerOpen)}  className="btn btn-primary btn-block">View cart</button>
-                ) : (
-                <button onClick={()=>setIsDrawerOpen(!isDrawerOpen)} disabled  className="btn btn-primary btn-block">View cart</button>
-
-                )
-
-                }
+                <label
+                    htmlFor="cart-drawer"
+                    className="btn btn-primary drawer-button"
+                  >
+                    View Cart
+                  </label>
                 
                 </div>
               </div>
@@ -79,7 +77,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <Sidebar show={isDrawerOpen} setShow={setIsDrawerOpen}/>
+      {/* <Sidebar show={isDrawerOpen} setShow={setIsDrawerOpen}/> */}
     </>
   );
 };
