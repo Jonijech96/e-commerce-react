@@ -12,6 +12,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import { useSelector } from "react-redux";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import DrawerCart from "./components/DrawerCart";
+import SignUp from "./pages/SignUp";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,7 +21,7 @@ function App() {
   return (
     <HashRouter>
       <div className="drawer">
-      <input
+        <input
           id="cart-drawer"
           type="checkbox"
           className="drawer-toggle"
@@ -31,27 +32,26 @@ function App() {
           // }}
         />
         <div className="drawer-content">
+          <div className="flex flex-col min-h-screen justify-between mx-auto">
+            <NavBar />
+            {isLoading && <LoadingScreen />}
 
-      <div className="flex flex-col min-h-screen justify-between mx-auto">
-
-      <NavBar />
-      {isLoading && <LoadingScreen />}
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/login" element={<Login />} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/purchases" element={<Purchases />} />
-        </Route>
-      </Routes>
-      <footer className="footer footer-center p-4 bg-base-300 text-base-content">
-        <div>
-          <p>Copyright © 2022 - All right reserved by Academlo</p>
-        </div>
-      </footer>
-      </div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/purchases" element={<Purchases />} />
+              </Route>
+            </Routes>
+            <footer className="footer footer-center p-4 bg-base-300 text-base-content">
+              <div>
+                <p>Copyright © 2022 - All right reserved by Academlo</p>
+              </div>
+            </footer>
+          </div>
         </div>
         <DrawerCart />
       </div>

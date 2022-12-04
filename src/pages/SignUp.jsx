@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const submit = (data) => {
@@ -11,9 +11,9 @@ const Login = () => {
     axios
       .post(url, data)
       .then((res) => {
-        navigate("/");
+        navigate("/login");
         console.log(res);
-        localStorage.setItem("token", res.data.data.token);
+        // localStorage.setItem("token", res.data.data.token);
       })
       .catch((error) => {
         if (error.response?.status === 404) {
@@ -86,4 +86,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
