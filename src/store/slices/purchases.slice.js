@@ -12,11 +12,14 @@ export const purchases = createSlice({
   },
 });
 export const getPurchasesThunk = () => (dispatch) => {
-  dispatch(setIsLoading(true));
-  return axios
-    .get("https://e-commerce-api.academlo.tech/api/v1/purchases", getConfig())
-    .then((res) => dispatch(setPurchases(res.data.data.purchases)))
-    .finally(() => dispatch(setIsLoading(false)));
+  // dispatch(setIsLoading(true));
+  // return axios
+  //   .get("https://e-commerce-api.academlo.tech/api/v1/purchases", getConfig())
+  //   .then((res) => dispatch(setPurchases(res.data.data.purchases)))
+  //   .finally(() => dispatch(setIsLoading(false)));
+
+    const purchases = JSON.parse(localStorage.getItem("purchases")) || [];
+  dispatch(setPurchases(purchases));
 };
 
 export const { setPurchases } = purchases.actions;

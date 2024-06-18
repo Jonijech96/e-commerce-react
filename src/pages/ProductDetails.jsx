@@ -16,18 +16,17 @@ const ProductDetails = () => {
   const {id} = useParams();
   const productsList = useSelector(state=>state.products);
   const product = productsList.find(productItem=>productItem.id === Number(id))
-  // console.log(product);
   const addToCart = () => {
     const cartItem = {
       id: product.id,
       quantity: inputCart,
+      price: product.price,
+      title: product.title,
     };
-    console.log(cartItem);
     dispatch(addCartThunk(cartItem));
     setInputCart(1);
   };
-  const productsCategories = productsList.filter(productItem=> productItem.category.id == product.category.id && productItem.id !== product.id);
-  // console.log(productsCategories);
+  const productsCategories = productsList.filter(productItem=> productItem.category == product.category && productItem.id !== product.id);
 
   return (
     <div>
@@ -42,10 +41,10 @@ const ProductDetails = () => {
       </div>
       <div className="hero bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
-          {/* <img src={product.productImgs?.[0]} className="max-w-sm rounded-lg shadow-2xl" /> */}
-          <Carrousel arrayImage={product.productImgs}/>
+          <img src={product.image} className="max-w-sm rounded-lg shadow-2xl" />
+          {/* <Carrousel arrayImage={product.productImgs}/> */}
           <div className='	w-4/5 sm:w-1/2'>
-          <div className="badge badge-outline">{product.category.name}</div>
+          <div className="badge badge-outline">{product.category}</div>
 
             <h1 className="text-3xl font-bold">{product.title}</h1>
             <p className="py-4">{product.description}</p>
@@ -82,8 +81,8 @@ const ProductDetails = () => {
       <div className="container mx-auto px-4 py-8">
         <h3 className="font-bold">discover similar items</h3>
         <ul className="flex flex-wrap justify-center gap-3 py-6">
-          {productsCategories.map((productItem) => (
-            <li>
+          {productsCategories.map((productItem,index) => (
+            <li key={index}>
               <Card product={productItem} />
             </li>
           ))}

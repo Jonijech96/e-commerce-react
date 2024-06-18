@@ -4,7 +4,6 @@ const Carrousel = ({arrayImage}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState(arrayImage[0]);
   useEffect(() => {
-    console.log("cambie");
     setSelectedImage(arrayImage[0]);
     
   }, [arrayImage])

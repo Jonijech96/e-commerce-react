@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCartThunk } from "../store/slices/cart.slice";
 import Sidebar from "./Sidebar";
+import ThemeChanger from "./ThemeChanger";
 
 const NavBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -17,7 +18,6 @@ const NavBar = () => {
   }, []);
 
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
 
   return (
     <>
@@ -70,6 +70,7 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
+   <ThemeChanger />
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <div className="indicator">

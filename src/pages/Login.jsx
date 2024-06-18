@@ -8,28 +8,37 @@ const Login = () => {
   const navigate = useNavigate();
   const submit = (data) => {
     const url = "https://e-commerce-api.academlo.tech/api/v1/users/login";
-    axios
-      .post(url, data)
-      .then((res) => {
-        navigate("/");
-        console.log(res);
-        localStorage.setItem("token", res.data.data.token);
-      })
-      .catch((error) => {
-        if (error.response?.status === 404) {
-          alert("credenciales incorrectas");
-        } else {
-          console.log(error.response.data);
-        }
-      });
-    // console.log(data);
+    const mockApiResponse = {
+      data: {
+        token: "abc123xyz",
+      },
+    };
+    // Simular la llamada a la API
+    if (data.email === "test@test.com" && data.password === "123456") {
+      // Guardar el token en el localStorage
+      localStorage.setItem("token", mockApiResponse.data.token);
+      navigate("/");
+    } else {
+      axios
+        .post(url, data)
+        .then((res) => {
+          navigate("/");
+          localStorage.setItem("token", res.data.data.token);
+        })
+        .catch((error) => {
+          if (error.response?.status === 404) {
+            alert("credenciales incorrectas");
+          } else {
+            console.log(error.response.data);
+          }
+        });
+    }
   };
   return (
     <div className="card w-96 mx-auto bg-base-100 shadow-md ">
       <div className="avatar place-content-center">
         <div className="w-24 rounded-full ring ring-slate-800 ring-offset-base-100 ring-offset-2">
           <svg
-            // className="w-10 rounded-full border-solid border-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
           >

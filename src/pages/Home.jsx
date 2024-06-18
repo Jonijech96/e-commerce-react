@@ -17,38 +17,41 @@ const Home = () => {
   const [categoriesProduct, setCategoriesProduct] = useState([]);
   const [inputSearch, setInputSearch] = useState("");
   const [categorySelected, setCategorySelected] = useState(0);
-  const [inputRange, setInputRange] = useState(3000);
-  const [fromPrice, setFromPrice] = useState(0);
-  const [toPrice, setToPrice] = useState(0);
-
+  const [MaxPriceProducts, setMaxPriceProducts] = useState(9999);
+  
+  const products = useSelector((state) => state.products);
   useEffect(() => {
     axios
-      .get("https://e-commerce-api.academlo.tech/api/v1/products/categories")
-      .then((res) => setCategoriesProduct(res.data.data.categories));
+      .get('https://fakestoreapi.com/products/categories')
+      .then((res) => setCategoriesProduct(['All',...res.data]));
   }, []);
+  useEffect(() => {
+    // Calcular el precio mínimo y máximo de los productos
+    const maxPriceProduct = getMaxPriceWithProduct(products);
+    setMaxPriceProducts(maxPriceProduct + 1);
+  }, [products]);
 
-  const products = useSelector((state) => state.products);
+  function getMaxPriceWithProduct(products) {
+    return products.reduce((maxPrice, currentProduct) => {
+      if (currentProduct.price > maxPrice) {
+        return currentProduct.price;
+      }
+      return maxPrice;
+    }, 0);
+  }
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProductsThunk());
   }, []);
+  const [priceMax, setPriceMax] = useState(MaxPriceProducts);
 
-  // console.log(categoriesProduct);
-  const filterPriceNew = ({ fromPrice, toPrice }) => {
-    // const newFilterArray = products.filter(
-    //   (product) =>
-    //     product.price > Number(fromPrice) && product.price < Number(toPrice)
-    // );
-    if (categorySelected == 0) {
-      dispatch(getProductsThunk());
-      dispatch(setProducts({ fromPrice, toPrice }));
-    } else {
-      dispatch(filterProductsThunk(categorySelected));
-      dispatch(setProducts({ fromPrice, toPrice }));
-    }
+  const handlePriceMaxChange = (event) => {
+    setPriceMax(event.target.value);
   };
+  const filteredProducts = products.filter((product) => product.price <= priceMax);
 
+  
   return (
     <div className="pb-5 bg-base-200">
       <div className="form-control py-8">
@@ -86,58 +89,44 @@ const Home = () => {
           <div className="categories py-4">
             <p className="font-semibold text-center pb-4">Categories</p>
             <div className="flex tabs-boxed flex-col gap-4 ">
-              {categoriesProduct.map((category) => (
+              
+              {categoriesProduct.map((category,index) => (
                 <button
-                  className={`tab ${
-                    category.id == categorySelected && "tab-active"
-                  }`}
-                  onClick={() => {
-                    dispatch(filterProductsThunk(category.id));
-                    setCategorySelected(category.id);
-                  }}
-                >
-                  {category.name}
-                </button>
+                className={`tab ${
+                  index === categorySelected && "tab-active"
+                }`}
+                onClick={() => {
+                  if (category === "All") {
+                    dispatch(getProductsThunk());
+                    setCategorySelected(index);
+                  } else {
+                    dispatch(filterProductsThunk(category));
+                    setCategorySelected(index);
+                  }
+                }}
+                key={index}
+              >
+                {category}
+              </button>
               ))}
             </div>
           </div>
           <p className="font-semibold text-center pb-4">Prices</p>
 
-          <label className="input-group gap-4 pb-4">
-            <div className="input-content">
-              <label className="label">
-                <span className="label-text">from</span>
-              </label>
-              <input
-                type="number"
-                className="input input-bordered w-full max-w-xs"
-                value={fromPrice}
-                onChange={(e) => setFromPrice(e.target.value)}
-              />
-            </div>
-            <div className="input-content">
-              <label className="label">
-                <span className="label-text">to</span>
-              </label>
-              <input
-                type="number"
-                className="input input-bordered w-full max-w-xs"
-                value={toPrice}
-                onChange={(e) => setToPrice(e.target.value)}
-              />
-            </div>
-          </label>
-          <button
-            className="btn btn-ghost"
-            onClick={() => dispatch(filterPrice({ fromPrice, toPrice }))}
-          >
-            filter Price
-          </button>
+          <label >hasta ${priceMax}</label>
+          <input
+        type="range"
+        min={0}
+        max={MaxPriceProducts}
+        value={priceMax}
+        onChange={handlePriceMaxChange}
+        className="range"
+      />
+        
         </div>
-
         <ul className="flex flex-wrap justify-center gap-3 max-w-4xl  ">
-          {products.map((product) => (
-            <li>
+          {filteredProducts.map((product) => (
+            <li key={product.id}>
               <Card product={product} />
             </li>
           ))}
@@ -148,3 +137,34 @@ const Home = () => {
 };
 
 export default Home;
+
+{/* <label className="input-group gap-4 pb-4">
+  <div className="input-content">
+    <label className="label">
+      <span className="label-text">from</span>
+    </label>
+    <input
+      type="number"
+      className="input input-bordered w-full max-w-xs"
+      value={fromPrice}
+      onChange={(e) => setFromPrice(e.target.value)}
+    />
+  </div>
+  <div className="input-content">
+    <label className="label">
+      <span className="label-text">to</span>
+    </label>
+    <input
+      type="number"
+      className="input input-bordered w-full max-w-xs"
+      value={toPrice}
+      onChange={(e) => setToPrice(e.target.value)}
+    />
+  </div>
+</label>
+<button
+  className="btn btn-ghost"
+  onClick={() => dispatch(filterPrice({ fromPrice, toPrice }))}
+>
+  filter Price
+</button> */}

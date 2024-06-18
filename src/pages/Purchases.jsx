@@ -9,12 +9,11 @@ const Purchases = () => {
   useEffect(() => {
     dispatch(getPurchasesThunk());
   }, []);
-
   return (
     <div>
       <ul>
-        {purchases.map((purchase) => (
-          <PurchaseItem purchase={purchase} key={purchase.id} />
+        {purchases.map((purchase,index) => (
+          <PurchaseItem purchase={purchase} key={index} />
         ))}
       </ul>
     </div>
